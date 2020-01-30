@@ -27,7 +27,7 @@ import { render } from 'react-dom';
 import Pagination from 'react-pagination-lite';
 
 const PaginationDemo = () => {
-    const [activePage, setActivePage] = useReducer(1);
+    const [activePage, setActivePage] = useState(1);
 
     return (
         <Pagination

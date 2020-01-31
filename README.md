@@ -13,7 +13,7 @@ A light weight react pagination component built using react hooks and styled usi
 
 ### Demo
 
-<https://github.com/hdhami>
+<https://hdhami.github.io/react-pagination-lite.html>
 
 ### Installing as a package
 
@@ -45,13 +45,13 @@ const PaginationDemo = () => {
 render(<PaginationDemo />, document.getElementById('root'));
 ```
 
-| Attributes |   Type   | Default  | Description                                                                |
-| :--------- | :------: | :------: | :------------------------------------------------------------------------- |
-| range   | `number`    |  `3`     | number of pagination blocks to be shown at a time                          |
-| activePage | `number` |   `1`    |  active page id                                                            |
-| totalCount | `number` | ``       | total number of records to be shared across pages                          |
-| itemsPerPage | `number` | `5`    | records to be shown on a page                                              |
-| onPaginate | `function` | ``     | callback to be invoked on page change                                      |
+| Attributes   |    Type    |                        Default                         | Description                                       |
+| :----------- | :--------: | :----------------------------------------------------: | :------------------------------------------------ |
+| range        |  `number`  |                          `3`                           | number of pagination blocks to be shown at a time |
+| activePage   |  `number`  |                          `1`                           | active page id                                    |
+| totalCount   |  `number`  | `` | total number of records to be shared across pages |
+| itemsPerPage |  `number`  |                          `5`                           | records to be shown on a page                     |
+| onPaginate   | `function` |       `` | callback to be invoked on page change       |
 
 =======================
 

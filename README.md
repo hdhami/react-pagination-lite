@@ -38,6 +38,19 @@ const PaginationDemo = () => {
             onPaginate={pageId => {
                 setActivePage(pageId);
             }}
+            styles={{
+                navigationBtns: {
+                    activeIconColor: '#000',
+                    inactiveIconColor: '#b5b5b5',
+                    borderColor: '#eeeeee'
+                },
+                paginationCells: {
+                    padding: '0 12px',
+                    activeBgColor: '#92a772',
+                    inactiveBgColor: '#f2f2f2',
+                    textColor: '#000000'
+                }
+            }}
         />
     );
 };
@@ -52,6 +65,7 @@ render(<PaginationDemo />, document.getElementById('root'));
 | totalCount   |  `number`  | `` | total number of records to be shared across pages |
 | itemsPerPage |  `number`  |                          `5`                           | records to be shown on a page                     |
 | onPaginate   | `function` |       `` | callback to be invoked on page change       |
+| styles       |  `object`  | `` | styles for pagination cell, next, prev navigation |
 
 =======================
 

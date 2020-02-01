@@ -140,9 +140,11 @@ var deepClone = function deepClone(obj) {
 };
 
 var PrevButton = function PrevButton(_ref) {
-  var _ref$disabled = _ref.disabled,
+  var _ref$styles = _ref.styles,
+      styles = _ref$styles === void 0 ? {} : _ref$styles,
+      _ref$disabled = _ref.disabled,
       disabled = _ref$disabled === void 0 ? false : _ref$disabled;
-  var fill = disabled ? '#b5b5b5' : '#927239';
+  var fill = disabled ? styles.inactiveIconColor : styles.activeIconColor;
   return React__default.createElement("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     width: "7.41",
@@ -156,9 +158,11 @@ var PrevButton = function PrevButton(_ref) {
 };
 
 var NextButton = function NextButton(_ref2) {
-  var _ref2$disabled = _ref2.disabled,
+  var _ref2$styles = _ref2.styles,
+      styles = _ref2$styles === void 0 ? {} : _ref2$styles,
+      _ref2$disabled = _ref2.disabled,
       disabled = _ref2$disabled === void 0 ? false : _ref2$disabled;
-  var fill = disabled ? '#b5b5b5' : '#927239';
+  var fill = disabled ? styles.inactiveIconColor : styles.activeIconColor;
   return React__default.createElement("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     width: "7.41",
@@ -176,7 +180,21 @@ var Pagination = function Pagination(_ref3) {
       activePage = _ref3.activePage,
       totalCount = _ref3.totalCount,
       itemsPerPage = _ref3.itemsPerPage,
-      onPaginate = _ref3.onPaginate;
+      onPaginate = _ref3.onPaginate,
+      _ref3$styles = _ref3.styles,
+      styles = _ref3$styles === void 0 ? {
+    navigationBtns: {
+      activeIconColor: '#927239',
+      inactiveIconColor: '#b5b5b5',
+      borderColor: '#eeeeee'
+    },
+    paginationCells: {
+      padding: '0 12px',
+      activeBgColor: '#bda770',
+      inactiveBgColor: '#f2f2f2',
+      textColor: '#000000'
+    }
+  } : _ref3$styles;
   var perPageItems = itemsPerPage > totalCount ? totalCount : itemsPerPage;
   var numberOfPagesPossible = Math.ceil(totalCount / perPageItems);
   var pageRange = range > numberOfPagesPossible ? numberOfPagesPossible : range;
@@ -224,7 +242,8 @@ var Pagination = function Pagination(_ref3) {
 
   var buttonStyle = {
     height: '100%',
-    padding: '0 12px',
+    padding: "".concat(styles.paginationCells.padding),
+    color: "".concat(styles.paginationCells.textColor),
     border: 'none',
     ':focus': {
       outline: 'none'
@@ -233,17 +252,14 @@ var Pagination = function Pagination(_ref3) {
   };
   var listStyle = {
     flex: 1,
-    'margin-right': '8px',
-    ':last-child': {
-      'margin-right': '0px'
-    }
+    'margin-right': '8px'
   };
 
   var getStyleObject = function getStyleObject(pageId) {
     return activePage === pageId ? _objectSpread2({
-      background: '#bda770'
+      background: "".concat(styles.paginationCells.activeBgColor)
     }, buttonStyle) : _objectSpread2({
-      background: '#f2f2f2'
+      background: "".concat(styles.paginationCells.inactiveBgColor)
     }, buttonStyle);
   };
 
@@ -251,7 +267,8 @@ var Pagination = function Pagination(_ref3) {
     return paginationItems.map(function (pageId) {
       return React__default.createElement("li", {
         key: pageId,
-        style: listStyle
+        style: listStyle,
+        className: "_page_item"
       }, React__default.createElement("button", {
         type: "button",
         className: "_page_nv_btn",
@@ -265,43 +282,48 @@ var Pagination = function Pagination(_ref3) {
 
   return React__default.createElement(React__default.Fragment, null, React__default.createElement("style", {
     dangerouslySetInnerHTML: {
-      __html: "\n                        ._page_nv_btn:focus{\n                            outline:none\n                        }"
+      __html: "\n                        ._page_nv_btn:focus{\n                            outline:none\n                        }\n                        ._page_cont,\n                        ._page_item{\n                            list-style: none;\n                            margin: 0;\n                            padding: 0;\n                        }\n                        "
     }
   }), React__default.createElement("ul", {
+    className: "_page_cont",
     style: {
       display: 'flex',
       'flex-direction': 'row',
       height: '100%'
     }
   }, React__default.createElement("li", {
-    style: listStyle
+    style: listStyle,
+    className: "_page_item"
   }, React__default.createElement("button", {
     type: "button",
     className: "_page_nv_btn",
     style: _objectSpread2({}, buttonStyle, {
-      border: '1px solid #eee'
+      border: "1px solid ".concat(styles.navigationBtns.borderColor)
     }),
     onClick: function onClick() {
       var pageId = activePage - 1;
       onPagination(pageId);
     }
   }, React__default.createElement(PrevButton, {
+    styles: styles.navigationBtns,
     disabled: activePage - 1 === 0
   }))), renderPaginationItems(), React__default.createElement("li", {
     style: _objectSpread2({}, listStyle, {
       'margin-right': '0px'
-    })
+    }),
+    className: "_page_item"
   }, React__default.createElement("button", {
     type: "button",
     className: "_page_nv_btn",
     style: _objectSpread2({}, buttonStyle, {
-      border: '1px solid #eee'
+      border: "1px solid ".concat(styles.navigationBtns.borderColor)
     }),
     onClick: function onClick() {
       var pageId = activePage + 1;
       onPagination(pageId);
     }
   }, React__default.createElement(NextButton, {
+    styles: styles.navigationBtns,
     disabled: activePage + 1 > numberOfPagesPossible
   })))));
 };

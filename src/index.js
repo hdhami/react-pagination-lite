@@ -24,8 +24,8 @@ const deepClone = obj => {
     return obj;
 };
 
-const PrevButton = ({ disabled = false }) => {
-    const fill = disabled ? '#b5b5b5' : '#927239';
+const PrevButton = ({ styles = {}, disabled = false }) => {
+    const fill = disabled ? styles.inactiveIconColor : styles.activeIconColor;
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="7.41" height="12" viewBox="0 0 7.41 12">
             <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill={fill} transform="translate(-8 -6)" />
@@ -33,8 +33,8 @@ const PrevButton = ({ disabled = false }) => {
     );
 };
 
-const NextButton = ({ disabled = false }) => {
-    const fill = disabled ? '#b5b5b5' : '#927239';
+const NextButton = ({ styles = {}, disabled = false }) => {
+    const fill = disabled ? styles.inactiveIconColor : styles.activeIconColor;
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="7.41" height="12" viewBox="0 0 7.41 12">
             <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill={fill} transform="translate(-8.59 -6)" />
@@ -42,7 +42,26 @@ const NextButton = ({ disabled = false }) => {
     );
 };
 
-const Pagination = ({ range, activePage, totalCount, itemsPerPage, onPaginate }) => {
+const Pagination = ({
+    range,
+    activePage,
+    totalCount,
+    itemsPerPage,
+    onPaginate,
+    styles = {
+        navigationBtns: {
+            activeIconColor: '#927239',
+            inactiveIconColor: '#b5b5b5',
+            borderColor: '#eeeeee'
+        },
+        paginationCells: {
+            padding: '0 12px',
+            activeBgColor: '#bda770',
+            inactiveBgColor: '#f2f2f2',
+            textColor: '#000000'
+        }
+    }
+}) => {
     const perPageItems = itemsPerPage > totalCount ? totalCount : itemsPerPage;
     const numberOfPagesPossible = Math.ceil(totalCount / perPageItems);
     const pageRange = range > numberOfPagesPossible ? numberOfPagesPossible : range;
@@ -79,7 +98,8 @@ const Pagination = ({ range, activePage, totalCount, itemsPerPage, onPaginate })
     };
     const buttonStyle = {
         height: '100%',
-        padding: '0 12px',
+        padding: `${styles.paginationCells.padding}`,
+        color: `${styles.paginationCells.textColor}`,
         border: 'none',
         ':focus': {
             outline: 'none'
@@ -88,22 +108,19 @@ const Pagination = ({ range, activePage, totalCount, itemsPerPage, onPaginate })
     };
     const listStyle = {
         flex: 1,
-        'margin-right': '8px',
-        ':last-child': {
-            'margin-right': '0px'
-        }
+        'margin-right': '8px'
     };
     const getStyleObject = pageId =>
         activePage === pageId
             ? {
-                  background: '#bda770',
+                  background: `${styles.paginationCells.activeBgColor}`,
                   ...buttonStyle
               }
-            : { background: '#f2f2f2', ...buttonStyle };
+            : { background: `${styles.paginationCells.inactiveBgColor}`, ...buttonStyle };
 
     const renderPaginationItems = () =>
         paginationItems.map(pageId => (
-            <li key={pageId} style={listStyle}>
+            <li key={pageId} style={listStyle} className="_page_item">
                 <button
                     type="button"
                     className="_page_nv_btn"
@@ -124,41 +141,49 @@ const Pagination = ({ range, activePage, totalCount, itemsPerPage, onPaginate })
                     __html: `
                         ._page_nv_btn:focus{
                             outline:none
-                        }`
+                        }
+                        ._page_cont,
+                        ._page_item{
+                            list-style: none;
+                            margin: 0;
+                            padding: 0;
+                        }
+                        `
                 }}
             />
             <ul
+                className="_page_cont"
                 style={{
                     display: 'flex',
                     'flex-direction': 'row',
                     height: '100%'
                 }}
             >
-                <li style={listStyle}>
+                <li style={listStyle} className="_page_item">
                     <button
                         type="button"
                         className="_page_nv_btn"
-                        style={{ ...buttonStyle, border: '1px solid #eee' }}
+                        style={{ ...buttonStyle, border: `1px solid ${styles.navigationBtns.borderColor}` }}
                         onClick={() => {
                             const pageId = activePage - 1;
                             onPagination(pageId);
                         }}
                     >
-                        <PrevButton disabled={activePage - 1 === 0} />
+                        <PrevButton styles={styles.navigationBtns} disabled={activePage - 1 === 0} />
                     </button>
                 </li>
                 {renderPaginationItems()}
-                <li style={{ ...listStyle, 'margin-right': '0px' }}>
+                <li style={{ ...listStyle, 'margin-right': '0px' }} className="_page_item">
                     <button
                         type="button"
                         className="_page_nv_btn"
-                        style={{ ...buttonStyle, border: '1px solid #eee' }}
+                        style={{ ...buttonStyle, border: `1px solid ${styles.navigationBtns.borderColor}` }}
                         onClick={() => {
                             const pageId = activePage + 1;
                             onPagination(pageId);
                         }}
                     >
-                        <NextButton disabled={activePage + 1 > numberOfPagesPossible} />
+                        <NextButton styles={styles.navigationBtns} disabled={activePage + 1 > numberOfPagesPossible} />
                     </button>
                 </li>
             </ul>

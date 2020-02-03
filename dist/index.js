@@ -303,7 +303,8 @@ var Pagination = function Pagination(_ref3) {
     onClick: function onClick() {
       var pageId = activePage - 1;
       onPagination(pageId);
-    }
+    },
+    "aria-label": "prev-button"
   }, React__default.createElement(PrevButton, {
     styles: styles.navigationBtns,
     disabled: activePage - 1 === 0
@@ -321,7 +322,8 @@ var Pagination = function Pagination(_ref3) {
     onClick: function onClick() {
       var pageId = activePage + 1;
       onPagination(pageId);
-    }
+    },
+    "aria-label": "next-button"
   }, React__default.createElement(NextButton, {
     styles: styles.navigationBtns,
     disabled: activePage + 1 > numberOfPagesPossible

@@ -168,6 +168,7 @@ const Pagination = ({
                             const pageId = activePage - 1;
                             onPagination(pageId);
                         }}
+                        aria-label="prev-button"
                     >
                         <PrevButton styles={styles.navigationBtns} disabled={activePage - 1 === 0} />
                     </button>
@@ -182,6 +183,7 @@ const Pagination = ({
                             const pageId = activePage + 1;
                             onPagination(pageId);
                         }}
+                        aria-label="next-button"
                     >
                         <NextButton styles={styles.navigationBtns} disabled={activePage + 1 > numberOfPagesPossible} />
                     </button>

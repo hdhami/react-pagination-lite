@@ -14,10 +14,15 @@
     },
     "keywords": [
         "react",
-        "react pagination",
-        "react paginate",
+        "reactjs",
+        "pagination",
+        "paginator",
+        "webpack",
+        "rollup",
+        "babel",
         "paginate",
-        "react js paginate"
+        "lightweight",
+        "lite"
     ],
     "author": "Harish Singh Dhami",
     "license": "MIT",
